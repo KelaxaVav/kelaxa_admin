@@ -20,6 +20,8 @@ import SmsUserPage from './pages/sms/User'
 import SentSmsPage from './pages/sms/SentSms'
 import FileExplorer from './pages/imageSever/Files'
 import ChequeCreate from './pages/cheque'
+import LeaveRequest from './pages/leave'
+import KanBanBoardMain from './pages/kanbanboard/KanBanBoardMain'
 
 function App() {
 
@@ -27,9 +29,9 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-        <Route path='/login' element={<LoginScreen />}/>
-        <Route path='lock-screen' element={<LockScreen />} />
-          <Route  element={<AdminLayout />}>
+          <Route path='/login' element={<LoginScreen />} />
+          <Route path='lock-screen' element={<LockScreen />} />
+          <Route element={<AdminLayout />}>
             <Route path='/' element={<DashboardPage />} />
             {/* <Route path='service-provider' element={<ServiceProviderPage />} >
               <Route path=':service_provider_id'>
@@ -58,6 +60,16 @@ function App() {
                 <Route path='edit' />
               </Route> */}
             </Route>
+            <Route path='leave/create' element={<LeaveRequest />} >
+              {/* <Route path=':payment_id'>
+                <Route path='edit' />
+              </Route> */}
+            </Route>
+            <Route path='kanBanBoardMain/create' element={<KanBanBoardMain />} >
+              {/* <Route path=':payment_id'>
+                <Route path='edit' />
+              </Route> */}
+            </Route>
             {/* <Route path='recharge' element={<RechargePage />} >
               <Route path=':recharge_id'>
                 <Route path='edit' />
@@ -69,7 +81,7 @@ function App() {
             <Route path='app-settings' element={<AppSettings />} > */}
           </Route>
           {/* </Route> */}
-          
+
         </Routes>
       </BrowserRouter>
       <ToastContainer
@@ -82,7 +94,7 @@ function App() {
 
 
 
-      
+
   )
 }
 

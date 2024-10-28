@@ -1,0 +1,18 @@
+.status-reject {
+    color: red;
+}
+
+.status-conform {
+    color: green;
+}
+
+.status-default {
+    color: black;
+}
+
+.status-cell {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 5px;
+    text-align: center;
+}

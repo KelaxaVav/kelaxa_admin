@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react'
+import { EventHandler, FC, ReactElement, useEffect, useState } from 'react'
 import CustomDataTable from '../../../components/CustomDataTable'
 import BsModal from '../../../components/BsModal'
 import Http from '../../../tools/Http'
@@ -10,18 +10,22 @@ import CustomerForm from '../../../components/SmsUserForm'
 import { firstLetterCapital } from '../../../services/common'
 import SmsUserForm from '../../../components/SmsUserForm'
 import { getSmsUsers } from '../../../redux/slices/smsUserSlice'
+import SmsUserView from '../../../components/SmsUserView'
 
 type SmsUserPageProps = {
-
+    close: EventHandler<any>;
 }
 
 const SmsUserPage: FC<SmsUserPageProps> = (): ReactElement => {
     const [showAdd, setShowAdd] = useState(false);
+    const [showView, setShowView] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
     const { smsUsers } = useSelector<any, any>(state => state.smsUser);
+    const [userId, setUserId] = useState<number | null>(null);
 
     const fetchAll = () => {
         if (!searchParams.get('size')) {
@@ -44,6 +48,7 @@ const SmsUserPage: FC<SmsUserPageProps> = (): ReactElement => {
     }, [searchParams])
 
 
+
     const handleDelete = (user_id: string) => {
         Http.delete(`/user/${user_id}`)
             .then(response => {
@@ -62,10 +67,16 @@ const SmsUserPage: FC<SmsUserPageProps> = (): ReactElement => {
 
     const closeModal = () => {
         setShowAdd(false);
+        setSelectedUser(null);
         navigate("/sms/user");
-    }
+        setUserId(null);
+    };
 
 
+    const handleRowClick = (row: any) => {
+        setUserId(row.user_id);
+        setShowView(true);
+    };
 
     const dataColumns: TableColumn<any>[] = [
         {
@@ -119,8 +130,8 @@ const SmsUserPage: FC<SmsUserPageProps> = (): ReactElement => {
                         <i className="fw-normal fas fa-edit"></i>
                     </Link>
                     <button style={{ zIndex: 0 }} onClick={() => handleDelete(row.user_id)} className="btn btn-danger waves-effect input-group-text btn-sm">
-                    <i className="fw-normal fas fa-trash-alt"></i>
-                </button>
+                        <i className="fw-normal fas fa-trash-alt"></i>
+                    </button>
                     {/* <td className="text-center">
                         <button type="button"
                             className="btn btn-primary btn-sm waves-effect waves-light"
@@ -182,8 +193,13 @@ const SmsUserPage: FC<SmsUserPageProps> = (): ReactElement => {
                 </div>
             </div>
 
-            <CustomDataTable dataRows={smsUsers} dataColumns={dataColumns} paginationTotalRows={10} />
-            {/* <Outlet /> */}
+            <CustomDataTable dataRows={smsUsers} dataColumns={dataColumns} paginationTotalRows={10} onRowClicked={handleRowClick} />
+            {/* SmsUserView */}
+            <BsModal showModal={showView}>
+                <SmsUserView userId={userId} />
+            </BsModal>
+
+            {/* SmsUserForm */}
             <BsModal showModal={showAdd}>
                 <SmsUserForm close={closeModal} />
             </BsModal>

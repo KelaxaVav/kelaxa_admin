@@ -7,14 +7,15 @@ type CustomDataTableProps = {
   dataRows: any[],
   paginationTotalRows: number,
   dense?: boolean,
-  selectableRows ?: boolean,
+  selectableRows?: boolean,
   onSelectedRowsChange?: ((selected: {
     allSelected: boolean;
     selectedCount: number;
     selectedRows: any[];
-}) => void)
+  }) => void),
+  onRowClicked?: ((row: any, e: React.MouseEvent) => void) | undefined
 }
-const CustomDataTable = ({ dataColumns, dataRows, paginationTotalRows, dense = false, selectableRows= false, onSelectedRowsChange}: CustomDataTableProps) => {
+const CustomDataTable = ({ dataColumns, dataRows, paginationTotalRows, dense = false, selectableRows = false, onSelectedRowsChange, onRowClicked }: CustomDataTableProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [resetPagination, setResetPagination] = useState(false);
 
@@ -122,7 +123,7 @@ const CustomDataTable = ({ dataColumns, dataRows, paginationTotalRows, dense = f
         highlightOnHover={true}
         responsive={true}
         selectableRows={selectableRows}
-
+        onRowClicked={onRowClicked}
         pagination
         paginationServer
         paginationTotalRows={paginationTotalRows}

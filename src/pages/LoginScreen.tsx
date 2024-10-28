@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -10,16 +8,16 @@ function LoginScreen() {
   const [data, setData] = useState({ username: "admin", password: "Abcd@1234", is_remember: false });
 
   //Change Input Type Of Password
-  const [inputType,setInputType] =useState('password')
+  const [inputType, setInputType] = useState('password')
 
-  const toggleInput = () =>{
-    setInputType(inputType==='password' ? 'text' : 'password')
+  const toggleInput = () => {
+    setInputType(inputType === 'password' ? 'text' : 'password')
   }
 
   //End Change Input Type Of Password
 
   const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -101,15 +99,15 @@ function LoginScreen() {
                             </div>
                           </div>
                         </div>
-                      
+
                         <div className="mb-3">
                           <button className="btn btn-primary w-100 waves-effect waves-light" type="submit">Login</button>
                         </div>
                       </form>
-                      
+
                     </div>
                     <div className="mt-4 mt-md-5 text-center">
-                      <p className="mb-0">©  Transaction Management System . <i className="mdi mdi-heart text-danger" /> by Kelaxa</p>
+                      <p className="mb-0">©  KELAXA Admin  . <i className="mdi mdi-heart text-danger" /> by P.Kopana</p>
                     </div>
                   </div>
                 </div>

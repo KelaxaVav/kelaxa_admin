@@ -1,4 +1,4 @@
-import React, { ChangeEvent, EventHandler, FC, FormEvent, Fragment, ReactElement, useEffect, useState } from 'react'
+import { ChangeEvent, EventHandler, FC, FormEvent, Fragment, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Http from '../tools/Http';
@@ -24,7 +24,7 @@ const SmsUserForm: FC<SmsUserFormProps> = ({ close }): ReactElement => {
 
     const { roles } = useSelector<any, any>(state => state.role);
     const { smsUser } = useSelector<any, any>(state => state.smsUser);
-  
+
     useEffect(() => {
         Http.get("/role").then(response => {
             dispatch(getRoles(response.data));
@@ -74,7 +74,7 @@ const SmsUserForm: FC<SmsUserFormProps> = ({ close }): ReactElement => {
             last_name: data.last_name,
             mobile: data.mobile,
             email: data.email,
-            role_id:data.role_id
+            role_id: data.role_id
         }
 
         let submission;
@@ -105,56 +105,54 @@ const SmsUserForm: FC<SmsUserFormProps> = ({ close }): ReactElement => {
         imageChangeHandler(e, setData);
     }
 
-    // if (!isEdit || (isEdit && serviceProvider)) {
-    //     return
-    // }
+
     return (
         <Fragment>
             <form className="needs-validation" onSubmit={handleSubmit} noValidate style={{ display: "contents" }}>
                 <div className="modal-header">
                     <h5 className="modal-title" id="productModalTitle">{isEdit ? 'Edit' : 'Add'} User</h5>
-                    
+
                     <button title='closeModal' type="button" className="btn-close" onClick={close}></button>
                 </div>
                 <div className="modal-body bg-light fw-bold">
                     <div className="row">
-                      
+
                         <div className="col-md-12">
                             <label htmlFor="first_name" className="form-label mb-1 mt-2">First Name</label>
                             <input type="text" className="form-control form-control-sm" name="first_name" id="first_name" placeholder='Enter first name'
                                 value={data.first_name} onChange={(e) => setData({ ...data, first_name: e.target.value })}
-                                required 
-                                 />
+                                required
+                            />
                             <div className="invalid-feedback">Enter first name.</div>
                         </div>
                         <div className="col-md-12">
                             <label htmlFor="last_name" className="form-label mb-1 mt-2">Last Name</label>
                             <input type="text" className="form-control form-control-sm" name="last_name" id="Last_name" placeholder='Enter last name'
                                 value={data.last_name} onChange={(e) => setData({ ...data, last_name: e.target.value })}
-                                 required 
-                                 />
+                                required
+                            />
                             <div className="invalid-feedback">Enter last name.</div>
                         </div>
-                       
+
                         <div className="col-md-12">
                             <label htmlFor="mobile" className="form-label mb-1 mt-2">Mobile Number</label>
                             <input type="text" className="form-control form-control-sm" name="mobile" id="mobile" placeholder='Enter mobile'
                                 value={data.mobile}
-                                onChange={handleChange} required  />
+                                onChange={handleChange} required />
                             <div className="invalid-feedback">Enter mobile number.</div>
                         </div>
                         <div className="col-md-12">
                             <label htmlFor="email" className="form-label mb-1 mt-2">E-Mail Address</label>
                             <input type="text" className="form-control form-control-sm" name="email" id="email" placeholder='Enter email address'
                                 value={data.email}
-                                onChange={handleChange} required  />
+                                onChange={handleChange} required />
                             <div className="invalid-feedback">Enter email address.</div>
                         </div>
                         <div className="col-md-12">
                             <label htmlFor="mask" className="form-label mb-1 mt-2">Mask</label>
                             <input type="text" className="form-control form-control-sm" name="mask" id="mask" placeholder='Enter mask'
                                 value={data.mask}
-                                onChange={handleChange} required  />
+                                onChange={handleChange} required />
                             <div className="invalid-feedback">Enter mask.</div>
                         </div>
                         <div className="col-md-12">
@@ -167,7 +165,7 @@ const SmsUserForm: FC<SmsUserFormProps> = ({ close }): ReactElement => {
                             </select>
                             <div className="invalid-feedback">Select Role.</div>
                         </div>
-                      
+
                     </div>
                 </div>
                 <div className="modal-footer">
